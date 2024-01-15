@@ -4,87 +4,85 @@
 #include <string>
 #include <cmath>
 #include "consoleGUI/GUI.h"
-using namespace std;
+#include "textBox.h"
 
-class TextBox
+StandartButton one(6, 3, "1", 0, 15), two(6, 3, "2", 7, 15),
+three(6, 3, "3", 14, 15), four(6, 3, "4", 0, 12),
+five(6, 3, "5", 7, 12), six(6, 3, "6", 14, 12),
+seven(6, 3, "7", 0, 9), eight(6, 3, "8", 7, 9),
+nine(6, 3, "9", 14, 9), zero(6, 3, "0", 7, 18),
+exactly(6, 3, "=", 21, 18), plus(6, 3, "+", 21, 15),
+minus(6, 3, "-", 21, 12), mult(6, 3, "x", 21, 9),
+del(6, 3, "DEL", 21, 3), percent(6, 3, "%", 0, 3),
+CE(6, 3, "CE", 7, 3), C(6, 3, "C", 14, 3),
+reversibility(6, 3, "1/x", 0, 6), square(6, 3, "x^2", 7, 6),
+root(6, 3, " ", 14, 6), divide(6, 3, "/", 21, 6),
+sign(6, 3, "+/-", 0, 18), comma(6, 3, ",", 14, 18);
+
+
+
+void customizeButtons()
 {
-public:
-    TextBox(int textBoxWidth, int textBoxHeight, string value, int textBoxPositionX, int textBoxPositionY);
-    void show();
-    template <class T>
-    void changeValue(T newValue);
-private:
-    vector<vector<char>> arr;
-    int textBoxWidth;
-    int textBoxHeight;
-    int textBoxPositionX;
-    int textBoxPositionY;
-    string value;
-    void textBoxFill();
-};
-
-TextBox::TextBox(int textBoxWidth, int textBoxHeight, string value, int textBoxPositionX, int textBoxPositionY) :
-    textBoxWidth(textBoxWidth), textBoxHeight(textBoxHeight), value(value),
-    textBoxPositionX(textBoxPositionX), textBoxPositionY(textBoxPositionY)
-{
-    textBoxFill();
-}
-
-void TextBox::textBoxFill()
-{
-    arr.resize(textBoxHeight);
-    for (int i = 0; i < textBoxHeight; i++)
-    {
-        arr[i].resize(textBoxWidth, ' ');
-    }
-    for (int i = 0; i < textBoxHeight; i++)
-    {
-        arr[i][0] = '|';
-        arr[i][textBoxWidth - 1] = '|';
-    }
-    for (int j = 0; j < textBoxWidth; j++)
-    {
-        arr[0][j] = '-';
-        arr[textBoxHeight - 1][j] = '-';
-    }
-    arr[0][0] = '+';
-    arr[textBoxHeight - 1][0] = '+';
-    arr[0][textBoxWidth - 1] = '+';
-    arr[textBoxHeight - 1][textBoxWidth - 1] = '+';
-
-    for (int i = textBoxWidth - 2, j = value.size() - 1; i >= 1 && j >= 0; i--, j--)
-    {
-        arr[textBoxHeight / 2][i] = value[j];
-    }
-}
-
-void TextBox::show()
-{
-    for (int i = 0; i < textBoxHeight; i++)
-    {
-        for (int j = 0; j < textBoxWidth; j++)
-        {
-            setcur(textBoxPositionX + j, textBoxPositionY + i);
-            std::cout << arr[i][j];
-        }
-    }
-}
-
-template <class T>
-void TextBox::changeValue(T newValue)
-{
-    std::stringstream s;
-    s << newValue;
-    string a = s.str();
-    for (int i = 1; i < textBoxWidth - 1; i++)arr[textBoxHeight / 2][i] = ' ';
-    for (int i = textBoxWidth - 2, j = a.size() - 1; i >= 1 && j >= 0; i--, j--)
-    {
-        arr[textBoxHeight / 2][i] = a[j];
-    }
+    one.setBackgroundColor(White);
+    one.setForegroundColor(Black);
+    two.setBackgroundColor(White);
+    two.setForegroundColor(Black);
+    three.setBackgroundColor(White);
+    three.setForegroundColor(Black);
+    four.setBackgroundColor(White);
+    four.setForegroundColor(Black);
+    five.setBackgroundColor(White);
+    five.setForegroundColor(Black);
+    six.setBackgroundColor(White);
+    six.setForegroundColor(Black);
+    six.setBackgroundColor(White);
+    six.setForegroundColor(Black);
+    seven.setBackgroundColor(White);
+    seven.setForegroundColor(Black);
+    eight.setBackgroundColor(White);
+    eight.setForegroundColor(Black);
+    nine.setBackgroundColor(White);
+    nine.setForegroundColor(Black);
+    zero.setBackgroundColor(White);
+    zero.setForegroundColor(Black);
+    exactly.setBackgroundColor(White);
+    exactly.setForegroundColor(Black);
+    plus.setBackgroundColor(White);
+    plus.setForegroundColor(Black);
+    minus.setBackgroundColor(White);
+    minus.setForegroundColor(Black);
+    mult.setBackgroundColor(White);
+    mult.setForegroundColor(Black);
+    del.setBackgroundColor(White);
+    del.setForegroundColor(Black);
+    percent.setBackgroundColor(White);
+    percent.setForegroundColor(Black);
+    CE.setBackgroundColor(White);
+    CE.setForegroundColor(Black);
+    C.setBackgroundColor(White);
+    C.setForegroundColor(Black);
+    reversibility.setBackgroundColor(White);
+    reversibility.setForegroundColor(Black);
+    square.setBackgroundColor(White);
+    square.setForegroundColor(Black);
+    root.setBackgroundColor(White);
+    root.setForegroundColor(Black);
+    divide.setBackgroundColor(White);
+    divide.setForegroundColor(Black);
+    sign.setBackgroundColor(White);
+    sign.setForegroundColor(Black);
+    comma.setBackgroundColor(White);
+    comma.setForegroundColor(Black);
+    char symRoot = char(251);
+    std::string sR = "o";
+    sR[0] = char(251); sR += "x";
+    root.setName(sR);
 }
 
 int main()
 {
+    setColorBackground(White);
+    setColorForeground(Black);
     HWND console = GetConsoleWindow();
     SetConsoleTitleA("Calculator");
 
@@ -108,25 +106,12 @@ int main()
 
     SetConsoleScreenBufferSize(hOut, newSize);
 
-    char symRoot = char(251);
-    string sR = "o";
-    sR[0] = char(251); sR += "x";
-    StandartButton one(6, 3, "1", 0, 15), two(6, 3, "2", 7, 15),
-        three(6, 3, "3", 14, 15), four(6, 3, "4", 0, 12),
-        five(6, 3, "5", 7, 12), six(6, 3, "6", 14, 12),
-        seven(6, 3, "7", 0, 9), eight(6, 3, "8", 7, 9),
-        nine(6, 3, "9", 14, 9), zero(6, 3, "0", 7, 18),
-        exactly(6, 3, "=", 21, 18), plus(6, 3, "+", 21, 15),
-        minus(6, 3, "-", 21, 12), mult(6, 3, "x", 21, 9),
-        del(6, 3, "DEL", 21, 3), percent(6, 3, "%", 0, 3),
-        CE(6, 3, "CE", 7, 3), C(6, 3, "C", 14, 3),
-        reversibility(6, 3, "1/x", 0, 6), square(6, 3, "x^2", 7, 6),
-        root(6, 3, sR, 14, 6), divide(6, 3, "/", 21, 6),
-        sign(6, 3, "+/-", 0, 18), comma(6, 3, ",", 14, 18);
+    customizeButtons();
+
     TextBox table(27, 3, "", 0, 0);
-    string temp = "";
-    string temp1 = "";
-    string temp2 = "";
+    std::string temp = "";
+    std::string temp1 = "";
+    std::string temp2 = "";
     del.connect([&]() {if (temp.size() != 0) { temp.pop_back(); table.changeValue(temp); }  });
     one.connect([&]() {temp += '1'; table.changeValue(temp); });
     two.connect([&]() {temp += '2'; table.changeValue(temp); });
@@ -148,7 +133,7 @@ int main()
         }
         else
         {
-            string s = temp;
+            std::string s = temp;
             temp = "";
             for (int i = 1; i < s.size(); i++)
             {

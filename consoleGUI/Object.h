@@ -2,6 +2,7 @@
 #pragma once
 #include <Windows.h>
 #include <vector>
+#include "objectInteraction.h"
 class Object
 {
 public:
